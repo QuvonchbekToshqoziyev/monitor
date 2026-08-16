@@ -1,0 +1,21 @@
+[Unit]
+Description=Linux laptop monitor with Telegram dashboard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/monitor/src
+EnvironmentFile=%h/.config/linux-monitor/env
+ExecStart=%h/monitor/.venv/bin/python -m linux_monitor --config %h/.config/linux-monitor/config.toml
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=%h/.local/state/linux-monitor
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=default.target

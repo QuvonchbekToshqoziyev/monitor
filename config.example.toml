@@ -1,0 +1,29 @@
+[telegram]
+# Put TELEGRAM_BOT_TOKEN in the service environment file, never here.
+# Destination for automatic system alerts; this is not an authorization ID.
+chat_id = 123456789
+# Immutable numeric Telegram sender IDs. Empty means nobody can use the bot.
+allowed_user_ids = [123456789]
+# The TOML list seeds this private file only when it does not exist yet.
+allowlist_path = "~/.local/state/linux-monitor/telegram-users.json"
+
+[monitor]
+poll_interval_seconds = 60
+battery_thresholds = [20, 10, 5]
+storage_critical_free_percent = 10
+storage_recovery_free_percent = 12
+temperature_critical_celsius = 90
+temperature_recovery_celsius = 80
+memory_critical_percent = 90
+memory_recovery_percent = 85
+memory_sustained_polls = 3
+notify_charger_events = false
+notify_storage_recovery = true
+notify_resume = true
+# Prefix user services with "user:"; unprefixed units use the system manager.
+services = ["docker.service", "ssh.service", "user:linux-monitor.service"]
+storage_paths = ["/"]
+state_path = "~/.local/state/linux-monitor/state.json"
+log_level = "INFO"
+# Optional. When omitted, systemd stores logs in the journal.
+# log_path = "~/.local/state/linux-monitor/monitor.log"
